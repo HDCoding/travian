@@ -1,0 +1,38 @@
+{
+    "name": "john/travian",
+    "type": "project",
+    "description": "A Travian mod made with PDO and OOP",
+    "keywords": [
+        "travian",
+        "travian modded",
+        "travian oop",
+        "travian pdo"
+    ],
+    "license": "GNU GPL-3.0",
+    "require": {
+        "phpmailer/phpmailer": "^6.2",
+        "php": "^7.2",
+        "ext-pdo": "*",
+        "ext-ctype": "*"
+    },    
+    "authors": [
+        {
+            "name": "John",
+            "email": "monil@tutanota.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Travian\\": "app/"
+        },
+        "files": [
+            "app/functions.php",
+            "config/app.php",
+            "config/auth.php",
+            "config/cache.php",
+            "config/database.php",
+            "config/mail.php",
+            "config/session.php"
+        ]
+    }
+}

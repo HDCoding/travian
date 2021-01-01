@@ -1,0 +1,13 @@
+# Project
+/vendor
+.env
+composer.lock
+.rnd
+
+# IDEs
+/.idea
+/.vscode
+/nbproject
+
+# OS X
+.DS_Store
