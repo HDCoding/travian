@@ -142,3 +142,12 @@ if (!function_exists('redirect')) {
         }
     }
 }
+
+function file_fix_write($filename)
+{
+    if (!is_writable($filename)) {
+        if (!@chmod($filename, 0666)) {
+            die("Cannot change the mode of file ({$filename})");
+        };
+    }
+}
