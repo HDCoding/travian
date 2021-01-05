@@ -151,3 +151,13 @@ function file_fix_write($filename)
         };
     }
 }
+
+function get_pop($tid, $level)
+{
+    $name = "bid" . $tid;
+    global $$name;
+    $dataarray = $$name;
+    $pop = $dataarray[($level + 1)]['pop'];
+    $cp = $dataarray[($level + 1)]['cp'];
+    return array($pop, $cp);
+}
