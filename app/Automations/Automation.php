@@ -65,6 +65,34 @@ class Automation
 
     public function auctionComplete()
     {
+        $time = time();
+        $q = "SELECT `owner`,`uid`,`silver`,`btype`,`type`,`maxsilver`,`silver`,`num`,`id` FROM auction where finish = 0 and time <= $time LIMIT 100";
+        $dataarray = $database->query_return($q);
+        foreach ($dataarray as $data) {
+            $ownerID = $data['owner'];
+            $biderID = $data['uid'];
+            $silver = $data['silver'];
+            $btype = $data['btype'];
+            $type = $data['type'];
+            $silverdiff = $data['maxsilver'] - $data['silver'];
+            if ($silverdiff < 0) $silverdiff = 0;
+            if ($biderID != 0) {
+                $id = $database->checkHeroItem($biderID, $btype, $type);
+                if ($id) {
+                    $database->modifyHeroItem($id, 'num', $data['num'], 1);
+                    $database->modifyHeroItem($id, 'proc', 0, 0);
+                } else {
+                    $database->addHeroItem($biderID, $data['btype'], $data['type'], $data['num']);
+                }
+                $database->setSilver($biderID, $silverdiff, 1);
+                $q = 'UPDATE users SET bidsilver=bidsilver-' . $silverdiff . ' WHERE id=' . $biderID;
+                mysql_query($q);
+            }
+            $database->setSilver($ownerID, $silver, 1);
+            $q = 'UPDATE users SET ausilver=ausilver+' . $silver . ' WHERE id=' . $ownerID;
+            mysql_query($q);
+            $q = "UPDATE auction set finish=1 where id = " . $data['id'];
+            $database->query($q);
     }
 
     public function auctionAuto()
