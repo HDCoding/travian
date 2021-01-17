@@ -62,9 +62,12 @@ class Automation
         return 'Message(' . $exception->getMessage() . ') File(' . $exception->getFile() . ') Line(' . $exception->getLine() . ')';
     }
 
-
     public function auctionComplete()
     {
+
+        //todo
+        // fix sql
+
         $time = time();
         $q = "SELECT `owner`,`uid`,`silver`,`btype`,`type`,`maxsilver`,`silver`,`num`,`id` FROM auction where finish = 0 and time <= $time LIMIT 100";
         $dataarray = $database->query_return($q);
@@ -93,6 +96,7 @@ class Automation
             mysql_query($q);
             $q = "UPDATE auction set finish=1 where id = " . $data['id'];
             $database->query($q);
+        }
     }
 
     public function auctionAuto()
