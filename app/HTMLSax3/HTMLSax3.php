@@ -2,7 +2,7 @@
 
 namespace Travian\HTMLSax3;
 
-class HTMLSax3
+class HTMLSax3 extends StateParser
 {
     public $state_parser;
 
